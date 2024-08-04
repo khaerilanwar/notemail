@@ -6,9 +6,6 @@ function MainLayout({ children }) {
         <>
             <Header />
             <div className="max-w-screen-xl mx-auto">
-                <div className="my-6">
-                    <Search />
-                </div>
                 {children}
             </div>
         </>

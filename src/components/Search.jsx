@@ -1,6 +1,6 @@
 function Search() {
     return (
-        <form class="max-w-md md:max-w-2xl mx-auto">
+        <form class="max-w-md mx-1 md:max-w-2xl sm:mx-auto">
             <label for="email-search" class="mb-2 text-sm font-medium text-white sr-only ">Search</label>
             <div class="relative">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
