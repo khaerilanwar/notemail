@@ -14,18 +14,21 @@ function CardMail({ data }) {
                     Detail Email
                 </h5>
                 <table className="mb-3 mx-auto text-gray-100 text-sm md:text-lg">
-                    <tr>
-                        <td>Email</td>
-                        <td>: {data.email}</td>
-                    </tr>
-                    <tr>
-                        <td className="pe-2 md:pe-8">Kata Sandi</td>
-                        <td>: {data.password}</td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td>Email</td>
+
+                            <td>: {data.email}</td>
+                        </tr>
+                        <tr>
+                            <td className="pe-2 md:pe-8">Kata Sandi</td>
+                            <td>: {data.password}</td>
+                        </tr>
+                    </tbody>
                 </table>
 
                 <div className="flex justify-center gap-6">
-                    <Button color="warning" onClick={() => navigate(`/update/${data.email}`)}>
+                    <Button color="warning" onClick={() => navigate(`/update/${data._id}`)}>
                         Update
                     </Button>
                     <Button color="failure" onClick={() => setOpenModal(true)}>
