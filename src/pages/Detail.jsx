@@ -6,7 +6,7 @@ import { ApiContext } from "../context/ApiContext";
 import Loading from "../components/Loading";
 
 function Detail() {
-    const api = useContext(ApiContext)
+    const { api } = useContext(ApiContext)
     const { _id } = useParams()
     const [loading, setLoading] = useState(true)
     const [mailData, setMailData] = useState()

@@ -3,9 +3,11 @@ import InputOtorisasi from "../components/InputOtorisasi";
 import { ApiContext } from "../context/ApiContext";
 import Loading from "../components/Loading";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 function Otorisasi() {
-    const api = useContext(ApiContext)
+    const { api } = useContext(ApiContext)
+    const navigate = useNavigate()
     const [username, setUsername] = useState()
     const [password, setPassword] = useState()
     const [loading, setLoading] = useState(false)
@@ -15,11 +17,12 @@ function Otorisasi() {
         e.preventDefault()
         try {
             setLoading(true)
-            const response = await api.post('/otorisasi', { sandi: password })
-            const token = response.data.token
+            const response = await api.post('/otorisasi', { username, sandi: password })
+            const token = response.data.accessToken
             localStorage.setItem('token', token)
             const decoded = jwtDecode(token)
-            localStorage.setItem('role', decoded.role)
+            localStorage.setItem('username', decoded.username)
+            navigate("/")
         } catch (error) {
             setError(error)
             console.log(error)

@@ -1,7 +1,7 @@
 import { Outlet, Navigate } from "react-router-dom";
 
 function ProtectedRoutes() {
-    const isAuth = false;
+    const isAuth = false
 
     if (!isAuth) {
         return <Navigate to="/otorisasi" />;

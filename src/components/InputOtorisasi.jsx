@@ -9,7 +9,7 @@ function InputOtorisasi({ login, setPassword, setUsername }) {
             <h2 className="text-center text-2xl font-medium text-white mb-3">Otorisasi</h2>
             <form onSubmit={login}>
                 <div className="mb-4">
-                    <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-slate-600 focus:border-slaring-slate-600 block w-full p-2.5" autoFocus />
+                    <input onChange={(e) => setUsername(e.target.value)} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-slate-600 focus:border-slaring-slate-600 block w-full p-2.5" autoFocus />
                 </div>
                 <div className="relative flex items-center">
                     <input type={visible ? 'text' : 'password'} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-slate-600 focus:border-slaring-slate-600 block w-full p-2.5" onChange={(e) => setPassword(e.target.value)} required />

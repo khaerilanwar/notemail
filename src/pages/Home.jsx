@@ -5,23 +5,26 @@ import { useEffect, useState, useContext } from "react";
 import { ApiContext } from "../context/ApiContext";
 import Loading from "../components/Loading";
 import TableFooter from "../components/TableFooter";
+import { jwtDecode } from "jwt-decode";
 
 
 function Home() {
-    const api = useContext(ApiContext)
+    const { api } = useContext(ApiContext)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
     const [emails, setEmails] = useState([])
     const [page, setPage] = useState(1)
-    const [total, setTotal] = useState()
+    const [totalData, setTotalData] = useState()
+    const [totalPage, setTotalPage] = useState()
 
     async function fetchData(page) {
         try {
             setLoading(true)
             const response = await api.get(`/email?page=${page}`)
             setEmails(response.data.emails)
-            setTotal(response.data.totalEmails)
+            setTotalData(response.data.totalEmails)
             setPage(response.data.page)
+            setTotalPage(response.data.totalPages)
         } catch (error) {
             setError(error)
         } finally {
@@ -30,7 +33,7 @@ function Home() {
     }
 
     useEffect(() => {
-        fetchData()
+        fetchData(page)
     }, [])
 
     if (loading) return <Loading />
@@ -40,7 +43,7 @@ function Home() {
             <div className="my-4 max-w-screen-lg mx-auto">
                 <TableHeader />
                 <TableMail data={emails} currentPage={page} />
-                <TableFooter totalData={total} currentPage={page} fetchData={fetchData} />
+                <TableFooter totalData={totalData} currentPage={page} totalPage={totalPage} fetchData={fetchData} />
             </div>
         </MainLayout>
     );
