@@ -24,7 +24,7 @@ function FormMail({ title, data }) {
                     message: response.data.message
                 })
                 setLoading(false)
-                navigate('/')
+                navigate('/daftar-email')
             }
         } catch (error) {
             console.log(error)

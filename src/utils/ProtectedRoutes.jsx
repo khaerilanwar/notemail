@@ -16,7 +16,7 @@ function ProtectedRoutes() {
     // }
 
     return (
-        token && username ? <Outlet /> : <Navigate to="/otorisasi" />
+        token && username ? <Outlet /> : <Navigate to="/" />
     )
 }
 

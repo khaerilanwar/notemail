@@ -14,9 +14,9 @@ function App() {
     <ApiProvider>
       <Router>
         <Routes>
-          <Route path="/otorisasi" element={<Otorisasi />} />
+          <Route path="/" element={<Otorisasi />} />
           <Route element={<ProtectedRoutes />}>
-            <Route path="/" element={<Home />} />
+            <Route path="/daftar-email" element={<Home />} />
             <Route path="/detail/:_id" element={<Detail />} />
             <Route path="/update/:_id" element={<Update />} />
             <Route path="/add" element={<AddMail />} />

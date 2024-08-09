@@ -16,7 +16,7 @@ function Header() {
             localStorage.removeItem("token")
             localStorage.removeItem("username")
             setLoading(false)
-            navigate("/otorisasi")
+            navigate("/")
         } catch (error) {
             console.error(error)
         }
@@ -27,7 +27,7 @@ function Header() {
     return (
         <header className="max-w-screen-lg mx-auto">
             <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
-                <Link className="flex items-center space-x-3 rtl:space-x-reverse" to={"/"}>
+                <Link className="flex items-center space-x-3 rtl:space-x-reverse" to={"/daftar-email"}>
                     <img src={notemail} className="h-8" alt="Notemail Logo" />
                     <span className="self-center text-2xl text-white font-semibold whitespace-nowrap">NOTEMAIL</span>
                     <img src={notemail} className="h-8" alt="Notemail Logo" />

@@ -4,7 +4,7 @@ function MainLayout({ children }) {
     return (
         <>
             <Header />
-            <div className="max-w-screen-xl mx-auto">
+            <div className="mx-auto">
                 {children}
             </div>
         </>

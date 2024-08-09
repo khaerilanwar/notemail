@@ -16,7 +16,7 @@ function Otorisasi() {
         const token = localStorage.getItem('token')
         const username = localStorage.getItem('username')
 
-        if (token && username) navigate("/")
+        if (token && username) navigate("/daftar-email")
     }, [])
 
     async function masuk(e) {
@@ -28,7 +28,7 @@ function Otorisasi() {
             localStorage.setItem('token', token)
             const decoded = jwtDecode(token)
             localStorage.setItem('username', decoded.username)
-            navigate("/")
+            navigate("/daftar-email")
         } catch (error) {
             setError(error)
             console.log(error)
