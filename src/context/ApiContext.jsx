@@ -4,7 +4,7 @@ import { createContext } from "react";
 import Swal from "sweetalert2";
 import { useState } from "react";
 
-const baseURL = "http://localhost:3000"
+const baseURL = "https://notemails-e6d0a4f82467.herokuapp.com/"
 
 const ApiContext = createContext()
 const axiosInstance = axios.create({
