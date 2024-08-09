@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 function TableFooter({ totalData, currentPage, fetchData, totalPage }) {
 
     return (
@@ -7,7 +5,7 @@ function TableFooter({ totalData, currentPage, fetchData, totalPage }) {
             <nav className="flex items-center justify-between p-5 md:flex-row"
                 aria-label="Table navigation">
                 <span className="font-normal text-gray-300 text-sm">Showing
-                    <span className="font-semibold text-gray-50 "> 1-10</span> of
+                    <span className="font-semibold text-gray-50 "> 1-{totalData < 10 ? totalData : '10'}</span> of
                     <span className="font-semibold text-gray-50 "> {totalData}</span>
                 </span>
                 <ul className="inline-flex text-sm">

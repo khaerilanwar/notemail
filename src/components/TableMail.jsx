@@ -1,10 +1,11 @@
 import { Table } from "flowbite-react"
 import { Link } from "react-router-dom";
 
-function TableMail({ data, currentPage }) {
+function TableMail({ data, currentPage, totalData }) {
   return (
     <div className="overflow-x-auto mx-1">
-      <Table className="font-poppins bg-theme3">
+      <h2 className={`font-poppins bg-theme3 text-center text-white py-4 text-lg ${totalData !== 0 ? 'hidden' : ''}`}>Tidak ada email yang ditampilkan!</h2>
+      <Table className={`font-poppins bg-theme3 ${totalData !== 0 ? '' : 'hidden'}`}>
         <Table.Head>
           <Table.HeadCell className="bg-theme3 text-gray-200 text-sm normal-case font-semibold px-4 md:px-7">No.</Table.HeadCell>
           <Table.HeadCell className="bg-theme3 text-gray-200 text-sm normal-case font-semibold px-2">Email</Table.HeadCell>

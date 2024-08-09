@@ -1,16 +1,16 @@
 import MainLayout from "../layouts/MainLayout";
 import DetailMail from "../components/DetailMail";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { ApiContext } from "../context/ApiContext";
 import Loading from "../components/Loading";
 
 function Detail() {
     const { api } = useContext(ApiContext)
+    const navigate = useNavigate()
     const { _id } = useParams()
     const [loading, setLoading] = useState(true)
     const [mailData, setMailData] = useState()
-    const [error, setError] = useState()
 
     useEffect(() => {
         const getMail = async () => {
@@ -19,6 +19,9 @@ function Detail() {
                 setMailData(response.data)
             } catch (error) {
                 console.log(error)
+                if (error.response.status === 404) {
+                    navigate("/")
+                }
             } finally {
                 setLoading(false)
             }

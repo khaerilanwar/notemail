@@ -1,7 +1,7 @@
 import { Button } from "flowbite-react";
 import { useState } from "react";
 
-function InputOtorisasi({ login, setPassword, setUsername }) {
+function InputOtorisasi({ login, setPassword, setUsername, loading }) {
     const [visible, setvisible] = useState(false);
 
     return (
@@ -18,7 +18,7 @@ function InputOtorisasi({ login, setPassword, setUsername }) {
                         <ion-icon name={visible ? 'eye-off' : 'eye'} style={{ fontSize: "24px" }}></ion-icon>
                     </span>
                 </div>
-                <Button color="blue" type="submit" className="mt-3 w-full mx-auto">Masuk</Button>
+                <Button color="blue" type="submit" className="mt-3 w-full mx-auto"> {loading ? 'Loading ...' : 'Masuk'} </Button>
             </form>
         </div>
     );

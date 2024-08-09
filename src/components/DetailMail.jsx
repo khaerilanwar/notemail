@@ -1,11 +1,34 @@
 import { Button, Modal } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import CardLayout from "../layouts/CardLayout";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ApiContext } from "../context/ApiContext";
+import Loading from "./Loading";
 
 function CardMail({ data }) {
+    const { api, setMessageApi } = useContext(ApiContext)
     const navigate = useNavigate();
     const [openModal, setOpenModal] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    async function handleDelete() {
+        setOpenModal(false)
+        setLoading(true)
+        try {
+            const response = await api.delete(`/email/${data._id}`)
+            setMessageApi({
+                status: "success",
+                message: response.data.message
+            })
+            setLoading(false)
+            navigate("/")
+        } catch (error) {
+            console.error(error)
+            setLoading(false)
+        }
+    }
+
+    if (loading) return <Loading />
 
     return (
         <>
@@ -44,7 +67,7 @@ function CardMail({ data }) {
                             Apakah anda yakin ingin menghapus email ini?
                         </h3>
                         <div className="flex justify-center gap-4">
-                            <Button color="failure" onClick={() => setOpenModal(false)}>
+                            <Button color="failure" onClick={handleDelete}>
                                 Ya, Saya yakin
                             </Button>
                             <Button color="gray" onClick={() => setOpenModal(false)}>

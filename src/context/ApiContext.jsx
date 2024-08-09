@@ -1,6 +1,8 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { createContext } from "react";
+import Swal from "sweetalert2";
+import { useState } from "react";
 
 const baseURL = "http://localhost:3000"
 
@@ -15,6 +17,7 @@ axiosInstance.interceptors.request.use(
         // Mendapatkan token yang disimpan di local storage
         const token = localStorage.getItem("token")
         if (token) {
+            // config.headers.Authorization = `Bearer ${token}`
             // Mengecek apakah token sudah kadaluarsa
             const expiration = jwtDecode(token).exp * 1000
             if (Date.now() >= expiration) {
@@ -46,22 +49,25 @@ axiosInstance.interceptors.response.use(
         return response
     },
     async (error) => {
-        const originalRequest = error.config
 
-        if (error.response.status === 401 && !originalRequest._retry) {
-            originalRequest._retry = true
-            try {
-                const response = await axiosInstance.get("/token")
-                const newToken = response.data.accessToken
-                localStorage.setItem("token", newToken)
-                console.log("Dapet token baru!")
-                axios.defaults.headers['Authorization'] = `Bearer ${newToken}`
-                originalRequest.headers['Authorization'] = `Bearer ${newToken}`
-                return axiosInstance(originalRequest)
-            } catch (error) {
-                console.error("Gagal dapat token baru!", e)
-                return Promise.reject(error)
-            }
+        if (error.response) {
+            // Sweet Alert
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top",
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+
+            Toast.fire({
+                icon: "error",
+                title: error.response.data.message ? error.response.data.message : 'Gagal melakukan request!'
+            });
         }
 
         return Promise.reject(error)
@@ -69,8 +75,10 @@ axiosInstance.interceptors.response.use(
 )
 
 function ApiProvider({ children }) {
+    const [messageApi, setMessageApi] = useState()
+
     return (
-        <ApiContext.Provider value={{ api: axiosInstance, baseURL }}>
+        <ApiContext.Provider value={{ api: axiosInstance, baseURL, messageApi, setMessageApi }}>
             {children}
         </ApiContext.Provider>
     )

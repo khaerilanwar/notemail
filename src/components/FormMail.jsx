@@ -6,7 +6,7 @@ import { ApiContext } from "../context/ApiContext";
 import Loading from "./Loading";
 
 function FormMail({ title, data }) {
-    const api = useContext(ApiContext)
+    const { api, setMessageApi } = useContext(ApiContext)
     const navigate = useNavigate();
     const [visible, setvisible] = useState(false);
     const [email, setEmail] = useState(data ? data.email : '');
@@ -17,13 +17,18 @@ function FormMail({ title, data }) {
         e.preventDefault()
         try {
             setLoading(true)
-            const response = data ? await api.patch(`/email/${data._id}`, { password }) : await api.post('/email', { email, password });
+            const response = data ? await api.patch(`/email/${data._id}`, { password }) : await api.post('/email', { username: localStorage.getItem('username'), email, password });
             if ((data ? response.status === 200 : response.status === 201)) {
+                setMessageApi({
+                    status: "success",
+                    message: response.data.message
+                })
                 setLoading(false)
                 navigate('/')
             }
         } catch (error) {
             console.log(error)
+            setLoading(false)
         }
     }
 
