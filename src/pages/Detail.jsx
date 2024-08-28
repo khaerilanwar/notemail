@@ -12,20 +12,22 @@ function Detail() {
     const [loading, setLoading] = useState(true)
     const [mailData, setMailData] = useState()
 
-    useEffect(() => {
-        const getMail = async () => {
-            try {
-                const response = await api.get(`/email/${_id}`)
-                setMailData(response.data)
-            } catch (error) {
-                console.log(error)
-                if (error.response.status === 404) {
-                    navigate("/")
-                }
-            } finally {
-                setLoading(false)
+    async function getMail() {
+        try {
+            setLoading(true)
+            const response = await api.get(`/email/${_id}`)
+            setMailData(response.data)
+        } catch (error) {
+            console.log(error)
+            if (error.response.status === 404) {
+                navigate("/")
             }
+        } finally {
+            setLoading(false)
         }
+    }
+
+    useEffect(() => {
         getMail()
     }, [])
 
