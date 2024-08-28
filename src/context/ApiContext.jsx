@@ -64,23 +64,25 @@ axiosInstance.interceptors.response.use(
                 return Promise.reject(error)
             }
         } else {
-            // Sweet Alert
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "top",
-                showConfirmButton: false,
-                timer: 4000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer;
-                    toast.onmouseleave = Swal.resumeTimer;
-                }
-            });
+            if (error.response.data.message) {
+                // Sweet Alert
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top",
+                    showConfirmButton: false,
+                    timer: 4000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
 
-            Toast.fire({
-                icon: "error",
-                title: error.response.data.message
-            });
+                Toast.fire({
+                    icon: "error",
+                    title: error.response.data.message
+                });
+            }
         }
 
         return Promise.reject(error)
