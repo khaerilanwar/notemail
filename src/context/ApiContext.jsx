@@ -2,6 +2,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { createContext } from "react";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 const baseURL = "https://notemails-e6d0a4f82467.herokuapp.com/"
 
@@ -61,7 +62,9 @@ axiosInstance.interceptors.response.use(
                 return axiosInstance(originalRequest)
             } catch (error) {
                 console.error("Gagal dapat token baru!", e)
-                return Promise.reject(error)
+                await axiosInstance.delete("/logout")
+                localStorage.removeItem("token")
+                localStorage.removeItem("username")
             }
         } else {
             if (error.response.data.message) {
@@ -90,8 +93,9 @@ axiosInstance.interceptors.response.use(
 )
 
 function ApiProvider({ children }) {
+    const [messageApi, setMessageApi] = useState()
     return (
-        <ApiContext.Provider value={{ api: axiosInstance, baseURL }}>
+        <ApiContext.Provider value={{ api: axiosInstance, baseURL, messageApi, setMessageApi }}>
             {children}
         </ApiContext.Provider>
     )
